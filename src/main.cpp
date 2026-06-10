@@ -1,12 +1,7 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <iostream>
-
+#include "core/application.hpp"
 int main() {
 
-  if (!glfwInit()) {
-  }
-
-  glfwTerminate();
+  std::cout << "Hello World";
+  RTWA::app App;
+  App.Run(800, 800, "Testing");
 }

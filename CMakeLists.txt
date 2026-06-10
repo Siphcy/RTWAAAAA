@@ -1,21 +1,24 @@
 cmake_minimum_required(VERSION 3.20)
 project(RTWAAAAA VERSION 0.1.0 LANGUAGES CXX)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 find_package(PkgConfig REQUIRED)
 
 file(GLOB_RECURSE sources src/*.cpp src/*.hpp)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/external/glad/include)
-file(GLOB BUTTERFLIES_SOURCES_C ${CMAKE_CURRENT_SOURCE_DIR}/external *.c glad/src/gl.c)
+add_subdirectory(external/glad/)
+add_executable(RTWAAAAA ${sources})
 
-add_executable(RTWAAAAA ${sources} ${includes})
+
   if(UNIX AND NOT APPLE)
       pkg_check_modules(OPENGL REQUIRED gl)
-      pkg_check_modules(GLAD REQUIRED glfw3)
+      pkg_check_modules(GLFW REQUIRED glfw3)
 
       target_link_libraries(RTWAAAAA
           ${OPENGL_LIBRARIES}
           ${GLFW_LIBRARIES}
+          glad
       )
       target_include_directories(RTWAAAAA PRIVATE
           ${OPENGL_INCLUDE_DIRS}
@@ -28,7 +31,9 @@ add_executable(RTWAAAAA ${sources} ${includes})
       target_link_libraries(RTWAAAAA
           OpenGL::GL
           glfw
+          glad
       )
+
   endif()
 
 if(NOT CMAKE_BUILD_TYPE)
