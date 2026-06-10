@@ -1,16 +1,25 @@
 #include "core/application.hpp"
-#include "rhi/vertexarray.hpp"
+#include "rhi/vertex.hpp"
+#include "rhi/vertexvector.hpp"
 
 int main() {
-  RTWA::VertexArray va;
-  va.addVertices({
-    -0.5f, -0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-     0.0f,  0.5f, 0.0f,
+  RTWA::VertexVector vv;
+  RTWA::Vertex v1({
+      -0.8f, -0.5f, 0.0f,
+      -0.3f, -0.5f, 0.0f,
+      -0.55f, 0.5f, 0.0f,
   });
 
+  RTWA::Vertex v2({
+       0.3f, -0.5f, 0.0f,
+       0.8f, -0.5f, 0.0f,
+       0.55f, 0.5f, 0.0f,
+  });
+
+  vv.addVertex(v1);
+  vv.addVertex(v2);
   RTWA::app App;
   App.setShaderPaths("shaders/triangle.vert", "shaders/triangle.frag");
-  App.setVertexArray(va);
+  App.setVertexArray(vv);
   App.Run(800, 600, "Triangle");
 }

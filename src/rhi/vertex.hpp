@@ -2,15 +2,15 @@
 #include "rhi.hpp"
 #include <vector>
 namespace RTWA {
-class VertexArray {
+class Vertex {
 public:
   GLuint VAO, VBO; // Vertex Array Object, Vertex Buffer Object
+  Vertex(std::vector<GLfloat> vertexpoints) {
+    this->vertexpoints = vertexpoints;
+  }
   void load();
   void draw();
   void clear();
-  void addVertices(std::vector<GLfloat> vertices);
-
-private:
-  std::vector<std::vector<GLfloat>> VertexVector;
+  std::vector<GLfloat> vertexpoints;
 };
 } // namespace RTWA

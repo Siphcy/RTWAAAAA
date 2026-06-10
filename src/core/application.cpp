@@ -22,18 +22,19 @@ void RTWA::app::Run(int width, int height, const char *title) {
   if (this->vertShaderPath == nullptr || this->fragShaderPath == nullptr) {
     std::cout << "Warning: Please set shader paths";
   } else {
-    this->shader = std::make_unique<RTWA::Shader>(vertShaderPath, fragShaderPath);
+    this->shader =
+        std::make_unique<RTWA::Shader>(vertShaderPath, fragShaderPath);
   }
 
-  if (this->vertexarray == nullptr) {
+  if (this->vertexvector == nullptr) {
     std::cout << "Warning: Please set Vertex Array";
   } else {
-    this->vertexarray->load();
+    this->vertexvector->loadAll();
   }
 
   this->MainLoop();
 
-  this->vertexarray->clear();
+  this->vertexvector->clearAll();
   glfwDestroyWindow(this->window->getHandle());
   glfwTerminate();
 }
@@ -42,8 +43,9 @@ void RTWA::app::MainLoop() {
   while (!glfwWindowShouldClose(this->window->getHandle())) {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    if (this->shader) this->shader->use();
-    this->vertexarray->draw();
+    if (this->shader)
+      this->shader->use();
+    this->vertexvector->drawAll();
     glfwSwapBuffers(this->window->getHandle());
     glfwPollEvents();
   }
@@ -53,6 +55,6 @@ void RTWA::app::setShaderPaths(const char *vertPath, const char *fragPath) {
   this->vertShaderPath = vertPath;
   this->fragShaderPath = fragPath;
 }
-void RTWA::app::setVertexArray(RTWA::VertexArray &vertexarray) {
-  this->vertexarray = &vertexarray;
+void RTWA::app::setVertexArray(RTWA::VertexVector &vertexvector) {
+  this->vertexvector = &vertexvector;
 }
