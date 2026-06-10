@@ -1,7 +1,16 @@
 #include "core/application.hpp"
-int main() {
+#include "rhi/vertexarray.hpp"
 
-  std::cout << "Hello World";
+int main() {
+  RTWA::VertexArray va;
+  va.addVertices({
+    -0.5f, -0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+     0.0f,  0.5f, 0.0f,
+  });
+
   RTWA::app App;
-  App.Run(800, 800, "Testing");
+  App.setShaderPaths("shaders/triangle.vert", "shaders/triangle.frag");
+  App.setVertexArray(va);
+  App.Run(800, 600, "Triangle");
 }

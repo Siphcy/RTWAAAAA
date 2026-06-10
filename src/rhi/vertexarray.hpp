@@ -1,10 +1,13 @@
+#pragma once
 #include "rhi.hpp"
 #include <vector>
 namespace RTWA {
 class VertexArray {
 public:
   GLuint VAO, VBO; // Vertex Array Object, Vertex Buffer Object
-  VertexArray();
+  void load();
+  void draw();
+  void clear();
   void addVertices(std::vector<GLfloat> vertices);
 
 private:
