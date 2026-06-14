@@ -1,8 +1,9 @@
 #include "vertex.hpp"
+#include <cmath>
 #include <vector>
 
 void RTWA::Vertex::load() {
-  int flattened_size = 3;
+  int flattened_size = std::floor(this->vertexpoints.size() / 3);
 
   glGenVertexArrays(1, &this->VAO);
   glGenBuffers(1, &this->VBO);
@@ -23,8 +24,10 @@ void RTWA::Vertex::draw() {
               << std::endl;
     return;
   }
+  int vertexCount = this->vertexpoints.size() / 3;
+  GLenum mode = (vertexCount == 4) ? GL_TRIANGLE_STRIP : GL_TRIANGLES;
   glBindVertexArray(this->VAO);
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+  glDrawArrays(mode, 0, vertexCount);
 }
 
 void RTWA::Vertex::clear() {
